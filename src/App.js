@@ -1,62 +1,54 @@
 import React, { Component } from 'react';
 import './App.css';
-import UserInput from './UserInput/UserInput';
-import UserOutput from './UserOutput/UserOutput';
+import ValidationComponent from './ValidationComponent/ValidationComponent'
+import CharComponent from './CharComponent/CharComponent'
 
 class App extends Component {
   state = {
-    users: [
-      {name: 'Rakesh'},
-      {name: 'Mahesh'},
-      {name: 'Ganesh'}
-    ],
-    userName : '__RAKESH__',
-    showUsers : !true
+    userInput : '',
+    inputLength: 0
   };
 
-  userNameChangeHandler = (event) => {
-    this.setState({
-      users: [
-        {name: 'Rakesh'},
-        {name: event.target.value},
-        {name: 'Ganesh'}
-      ]
-    });
-  }
+  textChangeHandler= (event) => {
+    let txt = event.target.value;
 
-  toggleUsers = () => {
     this.setState({
-      showUsers : !this.state.showUsers
+      userInput   : txt,
+      inputLength : txt.length
     })
   }
-  
-  deleteUser = (userIndex) => {
-    const users = this.state.users.slice();
-    // const users = [...this.state.users];
-    users.splice(userIndex, 1);
+
+  onCharClick = (index) => {
+    let txt = this.state.userInput;
+    let txtArr = txt.split('');
+    txtArr.splice(index, 1);
+    let updatedString = txtArr.join('');
     this.setState({
-      users: users
-    });
+      userInput: updatedString,
+      inputLength: updatedString.length
+    })
   }
 
   render() {
-    let users = null;
-    if(this.state.showUsers) {
-      users = (
-        <div>
-          {
-            this.state.users.map((user, index) => {
-              return <UserOutput userName={user.name} deleteHandler={() => this.deleteUser(index)}/>
-            })
-          }
-        </div> 
-      );
+    let chars = null;
+    let charArr = this.state.userInput.split('');
+    if(charArr.length) {
+      chars = (
+        charArr.map((char, index) => {
+            return <CharComponent 
+                      key={index}
+                      char={char} 
+                      clickHandler={() => this.onCharClick(index)}
+                    />;
+        })
+      )
     }
     return (
       <div className="App">
-        <UserInput changeHandler={this.userNameChangeHandler} />
-        <button onClick={this.toggleUsers}>Toggle User Display</button>
-        {users}
+        <input type="text" value={this.state.userInput} onChange={ (event) => this.textChangeHandler(event)}/>
+        <p>Entered text length is: {this.state.inputLength}</p>
+        <ValidationComponent inputLength={this.state.inputLength}></ValidationComponent>
+        {chars}
       </div>
     );
   }

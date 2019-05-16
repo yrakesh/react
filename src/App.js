@@ -31,7 +31,8 @@ class App extends Component {
   }
   
   deleteUser = (userIndex) => {
-    const users = this.state.users;
+    const users = this.state.users.slice();
+    // const users = [...this.state.users];
     users.splice(userIndex, 1);
     this.setState({
       users: users

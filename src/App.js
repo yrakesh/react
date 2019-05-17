@@ -5,16 +5,14 @@ import CharComponent from './CharComponent/CharComponent'
 
 class App extends Component {
   state = {
-    userInput : '',
-    inputLength: 0
+    userInput : ''
   };
 
   textChangeHandler= (event) => {
     let txt = event.target.value;
 
     this.setState({
-      userInput   : txt,
-      inputLength : txt.length
+      userInput   : txt
     })
   }
 
@@ -24,8 +22,7 @@ class App extends Component {
     txtArr.splice(index, 1);
     let updatedString = txtArr.join('');
     this.setState({
-      userInput: updatedString,
-      inputLength: updatedString.length
+      userInput: updatedString
     })
   }
 
@@ -46,8 +43,8 @@ class App extends Component {
     return (
       <div className="App">
         <input type="text" value={this.state.userInput} onChange={ (event) => this.textChangeHandler(event)}/>
-        <p>Entered text length is: {this.state.inputLength}</p>
-        <ValidationComponent inputLength={this.state.inputLength}></ValidationComponent>
+        <p>Entered text length is: {this.state.userInput.length}</p>
+        <ValidationComponent inputLength={this.state.userInput.length}></ValidationComponent>
         {chars}
       </div>
     );

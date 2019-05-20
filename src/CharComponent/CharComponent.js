@@ -1,5 +1,4 @@
 import React from 'react';
-import Radium from 'radium';
 
 const charComponent = (props) => {
     const style = {
@@ -9,14 +8,9 @@ const charComponent = (props) => {
         margin: '16px',
         border: '1px solid #000',
     }
-    style[':hover'] = {
-        color: 'green',
-        border: '3px solid green',
-        fontWeight: 'bold'
-    }
     return (
         <span style={style} onClick={props.clickHandler}>{props.char}</span>
     );
 }
 
-export default Radium(charComponent);
+export default charComponent;

@@ -8,9 +8,11 @@ const charComponent = (props) => {
         textAlign: 'center',
         margin: '16px',
         border: '1px solid #000',
-        ':hover': {
-            border: '3px solid green',
-        }
+    }
+    style[':hover'] = {
+        color: 'green',
+        border: '3px solid green',
+        fontWeight: 'bold'
     }
     return (
         <span style={style} onClick={props.clickHandler}>{props.char}</span>

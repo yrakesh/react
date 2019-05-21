@@ -52,9 +52,19 @@ class App extends Component {
         </div> 
       );
     }
+
+    const classes = [];
+    if(this.state.users.length <= 2) {
+      classes.push('Red');
+    }
+    if(this.state.users.length <= 1) {
+      classes.push('Bold');
+    }
+
     return (
       <div className="App">
         <UserInput changeHandler={this.userNameChangeHandler} />
+        <p className={classes.join(' ')}>Test text</p>
         <button onClick={this.toggleUsers}>Toggle User Display</button>
         {users}
       </div>
